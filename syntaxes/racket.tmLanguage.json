@@ -15,9 +15,23 @@
             "match": "\\b(0x[0-9a-f]+|[0-9]+(?:\\.[0-9]+)?)\\b",
             "name": "constant.numeric.racket"
 		},
-		"identifier":{
+		"identifier": {
 			"match": "\\b\\w(?:[^\\s\\(\\)\\[\\]\\.])+\\b",
             "name": "constant.numeric.racket"
+		},
+		"struct": {
+			"match": "\\((?:\\s)*(struct)(?:\\s)+((?:[^\\s(])+)(?:\\s)*\\(((?:[^\\)])+)\\)",
+			"captures": {
+				"1": {
+					"name": "storage.type.class.racket"
+				},
+				"2": {
+					"name": "entity.name.type.class.racket"
+				},
+				"3": {
+					"name": "variable.other.racket"
+				}
+			}
 		},
 		"s-expression-name": {
 			"match": "\\((?:\\s)*([^'\"\\:#\\/\\(\\)\\[\\]0-9](?:[^\\)\\]\\(\\[\\s])*)",
@@ -52,6 +66,9 @@
 				},
 				{
 					"include": "#comment"
+				},
+				{
+					"include": "#struct"
 				},
                 {
                     "include": "#s-expression-name"
