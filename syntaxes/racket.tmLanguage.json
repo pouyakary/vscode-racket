@@ -27,9 +27,15 @@
             ]
         },
         "quoted-sexp": {
-            "begin": "(?:\\(|\\[)",
-            "end": "(?:\\)|\\])",
-            "name": "meta.sexp.quoted.racket",
+            "name": "meta.expression.quoted.racket",
+            "begin": "\\(|\\[",
+            "beginCaptures": {
+                "0": { "name": "string.quoted.single.racket" }
+            },
+            "end": "\\)|\\]",
+            "endCaptures": {
+                "0": { "name": "string.quoted.single.racket" }
+            },
             "patterns": [
                 { "include": "#quoted-sexp" },
                 { "include": "#atom" },
@@ -38,24 +44,157 @@
             ]
         },
         "sexp": {
-            "begin": "(?=\\(|\\[)",
-            "end": "(?:\\)|\\])",
-            "name": "meta.sexp.racket",
             "patterns": [
-                { "include": "#function-id" },
+                { "include": "#special-forms" },
+                { "include": "#normal-forms" }
+            ]
+        },
+        "normal-forms": {
+            "name": "meta.expression.racket",
+            "begin": "\\(|\\[",
+            "beginCaptures": {
+                "0": { "name": "punctuation.section.expression.begin.racket" }
+            },
+            "end": "\\)|\\]",
+            "endCaptures": {
+                "0": { "name": "punctuation.section.expression.end.racket" }
+            },
+            "patterns": [
+                { "include": "#quote" },
+                { "include": "#quasiquote" },
+                { "include": "#language-function" },
+                { "include": "#function-call" },
+                { "include": "#sexp" },
                 { "include": "#atom" },
                 { "include": "#comment" }
             ]
         },
-        "function-id": {
+        "declaring-pattern": {
             "patterns": [
                 {
-                    "begin": "(?:\\(|\\[)\\s*(define-values)\\s*(\\(|\\[)",
-                    "end": "(?:\\)|\\])",
+                    "begin": "(\\()\\s*(?=\\[)",
                     "beginCaptures": {
-                        "1": { "name": "support.function.racket" }
-                    }
-                    ,
+                        "1": { "name": "punctuation.section.expression.begin.racket" }
+                    },
+                    "end": "\\)",
+                    "endCaptures": {
+                        "0": { "name": "punctuation.section.expression.end.racket" }
+                    },
+                    "patterns": [
+                        {
+                            "begin": "(\\[)\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"]+)",
+                            "beginCaptures": {
+                                "1": { "name": "punctuation.section.expression.begin.racket" },
+                                "2": { "name": "variable.other.racket" }
+                            },
+                            "end": "\\]",
+                            "endCaptures": {
+                                "0": { "name": "punctuation.section.expression.end.racket" }
+                            },
+                            "patterns": [
+                                { "include": "#quote" },
+                                { "include": "#sexp" }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "special-forms": {
+            "patterns": [
+                {
+                    "name": "meta.expression.racket",
+                    "begin": "(\\(|\\[)\\s*((for\\*?(lists?|vector|hash(eq(v)?)?|fold|or|and|first|last|sum|product)?)|(let\\*?)|do)(?=[\\s\\{\\(\\[#])",
+                    "beginCaptures": {
+                        "1": { "name": "punctuation.section.expression.begin.racket" },
+                        "2": { "name": "keyword.control.racket" }
+                    },
+                    "end": "\\)|\\]",
+                    "endCaptures": {
+                        "0": { "name": "punctuation.section.expression.end.racket" }
+                    },
+                    "patterns": [
+                        { "include": "#declaring-pattern" },
+                        { "include": "#language-function" },
+                        { "include": "#sexp" },
+                        { "include": "#quote" },
+                        { "include": "#quasiquote" },
+                        { "include": "#atom" },
+                        { "include": "#comment" }
+                    ]
+                },
+                {
+                    "name": "meta.expression.racket",
+                    "begin": "(\\(|\\[)\\s*(case)(?=[\\s\\{\\(\\[#])",
+                    "beginCaptures": {
+                        "1": { "name": "punctuation.section.expression.begin.racket" },
+                        "2": { "name": "keyword.control.match.racket" }
+                    },
+                    "end": "\\)|\\]",
+                    "endCaptures": {
+                        "0": { "name": "punctuation.section.expression.end.racket" }
+                    },
+                    "patterns": [
+                        { 
+                            "name": "meta.case.pattern.racket",
+                            "begin": "(\\[)\\s*(?=\\()",
+                            "beginCaptures": {
+                                "1": { "name": "punctuation.section.expression.begin.racket" },
+                                "2": { "name": "keyword.control.match.racket" }
+                            },
+                            "end": "\\]",
+                            "endCaptures": {
+                                "0": { "name": "punctuation.section.expression.end.racket" }
+                            },
+                            "patterns": [
+                                { 
+                                    "name": "meta.case.match.racket",
+                                    "begin": "(?<=\\[)\\s*(?=(\\())",
+                                    "end": "(?<=\\))",
+                                    "patterns": [ 
+                                        { "include": "#quoted-sexp" }
+                                    ]
+                                },
+                                { "include": "$self" }
+                            ]
+                        },
+                        { 
+                            "name": "meta.expression.racket",
+                            "begin": "(\\[)\\s*(else)",
+                            "beginCaptures": {
+                                "1": { "name": "punctuation.section.expression.begin.racket" },
+                                "2": { "name": "keyword.control.racket" }
+                            },
+                            "end": "\\]",
+                            "endCaptures": {
+                                "0": { "name": "punctuation.section.expression.end.racket" }
+                            },
+                            "patterns": [
+                                { "include": "$self" }
+                            ]
+                        },
+                        { "include": "#language-function" },
+                        { "include": "#sexp" },
+                        { "include": "#quote" },
+                        { "include": "#quasiquote" },
+                        { "include": "#atom" },
+                        { "include": "#comment" }
+                    ]
+                }
+            ]
+        },
+        "function-call": {
+            "patterns": [
+                {
+                    "begin": "(?<=\\(|\\[)\\s*(define-values)\\s*(\\(|\\[)",
+                    "beginCaptures": {
+                        "1": { "name": "storage.type.racket" },
+                        "2": { "name": "punctuation.definition.variable.racket" }
+                    },
+                    "end": "(?:\\)|\\])",
+                    "endCaptures": {
+                        "0": { "name": "punctuation.definition.variable.racket" }
+                    },
                     "patterns": [
                         {
                             "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
@@ -64,40 +203,82 @@
                     ]
                 },
                 {
-                    "match": "(?:\\(|\\[)\\s*(define)\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
+                    "match": "(?<=\\(|\\[)\\s*(define)\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                     "captures": {
-                        "1": { "name": "support.function.racket" },
+                        "1": { "name": "storage.type.racket" },
                         "2": { "name": "variable.other.racket" }
                     }
                 },
                 {
-                    "begin": "(?:\\(|\\[)\\s*(define)\\s*(?=\\(|\\[)",
-                    "end": "(?:\\)|\\])",
+                    "begin": "(?<=\\(|\\[)\\s*(define)\\s*(\\(|\\[)",
                     "beginCaptures": {
-                        "1": { "name": "support.function.racket" }
-                    }
-                    ,
+                        "1": { "name": "storage.type.racket" },
+                        "2": { "name": "punctuation.definition.function.racket" }
+                    },
+                    "end": "\\)|\\]",
+                    "endCaptures": {
+                        "0": { "name": "punctuation.definition.function.racket" }
+                    },
                     "patterns": [
                         {
-                            "match": "(?:\\(|\\[)\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
+                            "match": "(?<=\\(|\\[)\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                             "captures": {
                                 "1": { "name": "entity.name.function.racket" }
                             }
                         },
                         {
                             "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
-                            "name": "variable.parameter"
+                            "name": "variable.parameter.racket"
                         }
                     ]
                 },
                 {
-                    "match": "(?:\\(|\\[)\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
+                    "match": "(?<=\\(|\\[)\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                     "captures": {
                         "1": { "name": "variable.function.racket" }
                     }
                 }
             ]
-            
+        },
+        "language-function": {
+            "patterns": [
+                {
+                    "match": "(?<=\\s|\\(|\\[)\\s*([+\\-*\/])(?=[\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;])",
+                    "captures": {
+                        "1": { "name": "keyword.operator.arithmetic.racket" }
+                    }
+                },
+                {
+                    "match": "(?<=\\s|\\(|\\[)\\s*(or|and|not)(?=[\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;])",
+                    "captures": {
+                        "1": { "name": "keyword.operator.word.racket" }
+                    }
+                },
+                {
+                    "match": "(?<=\\s|\\(|\\[)\\s*(cond|if)(?=[\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;])",
+                    "captures": {
+                        "1": { "name": "keyword.control.conditional.racket" }
+                    }
+                },
+                {
+                    "match": "(?<=\\s|\\(|\\[)\\s*(case|match)(?=[\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;])",
+                    "captures": {
+                        "1": { "name": "keyword.control.match.racket" }
+                    }
+                },
+                {
+                    "match": "(?<=\\s|\\(|\\[)\\s*(require|provide)(?=[\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;])",
+                    "captures": {
+                        "1": { "name": "keyword.control.import-export.racket" }
+                    }
+                },
+                {
+                    "match": "(?<=\\s|\\(|\\[)\\s*(set!|set-values!)(?=[\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;])",
+                    "captures": {
+                        "1": { "name": "keyword.control.assignment.racket" }
+                    }
+                }
+            ]
         },
         "atom": {
             "patterns": [
@@ -112,7 +293,7 @@
         "constant": {
             "patterns": [
                 {
-                    "match": "#(t|f)",
+                    "match": "#[tTfF]",
                     "name": "constant.language.racket"
                 },
                 {
@@ -148,8 +329,37 @@
             ]
         },
         "comment": {
-			"match": ";.*$\\n?",
-            "name": "comment.line.racket"
+            "patterns": [
+                {
+                    "match": ";.*$",
+                    "name": "comment.line.racket"
+                },
+                {
+                    "name": "comment.sexp.racket",
+                    "begin": "#;\\s*(?=\\()",
+                    "end": "(?<=\\))",
+                    "patterns": [
+                        { "include": "#parentheses" }
+                    ]
+                },
+                {
+                    "name": "comment.sexp.racket",
+                    "begin": "#;",
+                    "end": "(?=\\s|\\]|\\))",
+                    "patterns": [
+                        { "include": "#parentheses" }
+                    ]
+                },
+                {
+                    "name": "comment.block.racket",
+                    "begin": "#\\|",
+                    "end": "\\|#",
+                    "patterns": [
+                        { "include": "#comment" }
+                    ]
+                }
+            ]
+			
         },
         "keyword": {
 			"match": "(?<![^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;])(#:[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
@@ -248,6 +458,13 @@
 		"escaped-char": {
             "name": "constant.character.escape.untitled.racket",
             "match": "\\\\."
+        },
+        "parentheses": {
+            "begin": "\\(",
+            "end": "\\)",
+            "patterns": [
+                { "include": "#parentheses" }
+            ]
         }
     }
 }
