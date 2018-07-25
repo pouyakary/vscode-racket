@@ -84,6 +84,10 @@
                 }
             ]
         },
+        "rest-dot": {
+            "name": "keyword.control.match.rest.racket",
+            "match": "(?<=[\\(\\)\\[\\]\\{\\}\\s])\\.(?=[\\(\\)\\[\\]\\{\\}\\s])"
+        },
         "quasiquoted-sexp": {
             "begin": "(?<![,@])(\\()",
             "beginCaptures": {
@@ -687,6 +691,9 @@
                                 {
                                     "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
                                     "name": "variable.other.racket"
+                                },
+                                {
+                                    "include": "#comment"
                                 }
                             ]
                         },
@@ -730,6 +737,9 @@
                                 {
                                     "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
                                     "name": "variable.other.racket"
+                                },
+                                {
+                                    "include": "#comment"
                                 }
                             ]
                         },
@@ -797,6 +807,9 @@
                             },
                             "patterns": [
                                 {
+                                    "include": "#rest-dot"
+                                },
+                                {
                                     "match": "(?<=\\()\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                                     "captures": {
                                         "1": {
@@ -813,6 +826,9 @@
                                 },
                                 {
                                     "include": "#parameter-with-default-value"
+                                },
+                                {
+                                    "include": "#comment"
                                 }
                             ]
                         },
@@ -854,6 +870,9 @@
                             },
                             "patterns": [
                                 {
+                                    "include": "#rest-dot"
+                                },
+                                {
                                     "match": "(?<=\\()\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                                     "captures": {
                                         "1": {
@@ -870,6 +889,9 @@
                                 },
                                 {
                                     "include": "#parameter-with-default-value"
+                                },
+                                {
+                                    "include": "#comment"
                                 }
                             ]
                         },
@@ -910,6 +932,9 @@
                                 }
                             },
                             "patterns": [
+                                {
+                                    "include": "#rest-dot"
+                                },
                                 {
                                     "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
                                     "name": "variable.parameter.racket"
@@ -959,6 +984,9 @@
                                 }
                             },
                             "patterns": [
+                                {
+                                    "include": "#rest-dot"
+                                },
                                 {
                                     "match": "(?<=\\()\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                                     "captures": {
@@ -1017,6 +1045,9 @@
                             },
                             "patterns": [
                                 {
+                                    "include": "#rest-dot"
+                                },
+                                {
                                     "match": "(?<=\\()\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                                     "captures": {
                                         "1": {
@@ -1033,6 +1064,9 @@
                                 },
                                 {
                                     "include": "#parameter-with-default-value"
+                                },
+                                {
+                                    "include": "#comment"
                                 }
                             ]
                         },
@@ -1074,6 +1108,9 @@
                             },
                             "patterns": [
                                 {
+                                    "include": "#rest-dot"
+                                },
+                                {
                                     "match": "(?<=\\()\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                                     "captures": {
                                         "1": {
@@ -1090,6 +1127,9 @@
                                 },
                                 {
                                     "include": "#parameter-with-default-value"
+                                },
+                                {
+                                    "include": "#comment"
                                 }
                             ]
                         },
