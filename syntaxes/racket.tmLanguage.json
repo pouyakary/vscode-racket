@@ -807,28 +807,7 @@
                             },
                             "patterns": [
                                 {
-                                    "include": "#rest-dot"
-                                },
-                                {
-                                    "match": "(?<=\\()\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
-                                    "captures": {
-                                        "1": {
-                                            "name": "entity.name.function.racket"
-                                        }
-                                    }
-                                },
-                                {
-                                    "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
-                                    "name": "variable.parameter.racket"
-                                },
-                                {
-                                    "include": "#keyword"
-                                },
-                                {
-                                    "include": "#parameter-with-default-value"
-                                },
-                                {
-                                    "include": "#comment"
+                                    "include": "#function-parameters"
                                 }
                             ]
                         },
@@ -870,28 +849,7 @@
                             },
                             "patterns": [
                                 {
-                                    "include": "#rest-dot"
-                                },
-                                {
-                                    "match": "(?<=\\()\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
-                                    "captures": {
-                                        "1": {
-                                            "name": "entity.name.function.racket"
-                                        }
-                                    }
-                                },
-                                {
-                                    "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
-                                    "name": "variable.parameter.racket"
-                                },
-                                {
-                                    "include": "#keyword"
-                                },
-                                {
-                                    "include": "#parameter-with-default-value"
-                                },
-                                {
-                                    "include": "#comment"
+                                    "include": "#function-parameters"
                                 }
                             ]
                         },
@@ -933,17 +891,7 @@
                             },
                             "patterns": [
                                 {
-                                    "include": "#rest-dot"
-                                },
-                                {
-                                    "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
-                                    "name": "variable.parameter.racket"
-                                },
-                                {
-                                    "include": "#keyword"
-                                },
-                                {
-                                    "include": "#parameter-with-default-value"
+                                    "include": "#function-parameters"
                                 }
                             ]
                         },
@@ -985,25 +933,7 @@
                             },
                             "patterns": [
                                 {
-                                    "include": "#rest-dot"
-                                },
-                                {
-                                    "match": "(?<=\\()\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
-                                    "captures": {
-                                        "1": {
-                                            "name": "entity.name.function.racket"
-                                        }
-                                    }
-                                },
-                                {
-                                    "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
-                                    "name": "variable.parameter.racket"
-                                },
-                                {
-                                    "include": "#keyword"
-                                },
-                                {
-                                    "include": "#parameter-with-default-value"
+                                    "include": "#function-parameters"
                                 }
                             ]
                         },
@@ -1045,28 +975,7 @@
                             },
                             "patterns": [
                                 {
-                                    "include": "#rest-dot"
-                                },
-                                {
-                                    "match": "(?<=\\()\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
-                                    "captures": {
-                                        "1": {
-                                            "name": "entity.name.function.racket"
-                                        }
-                                    }
-                                },
-                                {
-                                    "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
-                                    "name": "variable.parameter.racket"
-                                },
-                                {
-                                    "include": "#keyword"
-                                },
-                                {
-                                    "include": "#parameter-with-default-value"
-                                },
-                                {
-                                    "include": "#comment"
+                                    "include": "#function-parameters"
                                 }
                             ]
                         },
@@ -1108,28 +1017,7 @@
                             },
                             "patterns": [
                                 {
-                                    "include": "#rest-dot"
-                                },
-                                {
-                                    "match": "(?<=\\()\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
-                                    "captures": {
-                                        "1": {
-                                            "name": "entity.name.function.racket"
-                                        }
-                                    }
-                                },
-                                {
-                                    "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
-                                    "name": "variable.parameter.racket"
-                                },
-                                {
-                                    "include": "#keyword"
-                                },
-                                {
-                                    "include": "#parameter-with-default-value"
-                                },
-                                {
-                                    "include": "#comment"
+                                    "include": "#function-parameters"
                                 }
                             ]
                         },
@@ -1507,6 +1395,34 @@
                 },
                 {
                     "include": "#keyword"
+                }
+            ]
+        },
+        "function-parameters": {
+            "patterns": [
+                {
+                    "include": "#rest-dot"
+                },
+                {
+                    "match": "(?<=\\()\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
+                    "captures": {
+                        "1": {
+                            "name": "entity.name.function.racket"
+                        }
+                    }
+                },
+                {
+                    "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
+                    "name": "variable.parameter.racket"
+                },
+                {
+                    "include": "#keyword"
+                },
+                {
+                    "include": "#parameter-with-default-value"
+                },
+                {
+                    "include": "#comment"
                 }
             ]
         },
