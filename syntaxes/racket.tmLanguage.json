@@ -13,6 +13,9 @@
         "top-level-clause": {
             "patterns": [
                 {
+                    "include": "#dot-operators"
+                },
+                {
                     "include": "#atom"
                 },
                 {
@@ -45,6 +48,26 @@
                 },
                 {
                     "include": "#syntax-quasiquote"
+                }
+            ]
+        },
+        "dot-operators": {
+            "patterns": [
+                {
+                    "name": "keyword.control.match.ellipsis.racket",
+                    "match": "(?<=[\\(\\)\\[\\]\\{\\}\\s])\\.{2}\\d+\\+?(?=[\\(\\)\\[\\]\\{\\}\\s])"
+                },
+                {
+                    "name": "keyword.control.match.ellipsis.racket",
+                    "match": "(?<=[\\(\\)\\[\\]\\{\\}\\s])\\.{3}\\+?(?=[\\(\\)\\[\\]\\{\\}\\s])"
+                },
+                {
+                    "name": "keyword.control.match.wildcard.racket",
+                    "match": "(?<=[\\(\\)\\[\\]\\{\\}\\s])_(?=[\\(\\)\\[\\]\\{\\}\\s])"
+                },
+                {
+                    "name": "keyword.control.cons.racket",
+                    "match": "(?<=[\\(\\)\\[\\]\\{\\}\\s])\\.(?=[\\(\\)\\[\\]\\{\\}\\s])"
                 }
             ]
         },
@@ -104,6 +127,9 @@
             "name": "meta.sexp.quasiquoted.racket",
             "patterns": [
                 {
+                    "include": "#dot-operators"
+                },
+                {
                     "include": "#unquote-syntax"
                 },
                 {
@@ -140,6 +166,9 @@
             },
             "patterns": [
                 {
+                    "include": "#dot-operators"
+                },
+                {
                     "include": "#quoted-sexp"
                 },
                 {
@@ -152,7 +181,7 @@
         },
         "quoted-atom": {
             "name": "string.quoted.single.racket",
-            "match": "[^\\s\\{\\}\\(\\)\\[\\]\\|,'´;]+"
+            "match": "[^\\.\\s][^\\s\\{\\}\\(\\)\\[\\]\\|,'´;]*"
         },
         "sexp": {
             "patterns": [
@@ -524,7 +553,7 @@
                                             "name": "keyword.control.match.racket"
                                         }
                                     },
-                                    "end": "(?<=\\])",
+                                    "end": "(?=\\])",
                                     "patterns": [
                                         {
                                             "include": "#top-level-clause"
@@ -549,22 +578,6 @@
                                     "begin": "(?<=\\[)\\s*('?)(?=\\()",
                                     "end": "(?<=\\))",
                                     "patterns": [
-                                        {
-                                            "name": "keyword.control.match.wildcard.racket",
-                                            "match": "(?<=[\\(\\)\\[\\]\\{\\}\\s])_(?=[\\(\\)\\[\\]\\{\\}\\s])"
-                                        },
-                                        {
-                                            "name": "keyword.control.match.quantifier.racket",
-                                            "match": "(?<=[\\(\\)\\[\\]\\{\\}\\s])\\.\\.\\d+(?=[\\(\\)\\[\\]\\{\\}\\s])"
-                                        },
-                                        {
-                                            "name": "keyword.control.match.ellipsis.racket",
-                                            "match": "(?<=[\\(\\)\\[\\]\\{\\}\\s])\\.{3}(?=[\\(\\)\\[\\]\\{\\}\\s])"
-                                        },
-                                        {
-                                            "name": "keyword.control.match.rest.racket",
-                                            "match": "(?<=[\\(\\)\\[\\]\\{\\}\\s])\\.(?=[\\(\\)\\[\\]\\{\\}\\s])"
-                                        },
                                         {
                                             "include": "#top-level-clause"
                                         }
@@ -1631,7 +1644,7 @@
         "quote": {
             "patterns": [
                 {
-                    "match": "(')([^\\s\\{\\}\\(\\)\\[\\]\\|,'´;]+)",
+                    "match": "(')([^\\s\\{\\}\\(\\)\\[\\]\\|,'´;#\\\\]+)",
                     "captures": {
                         "1": {
                             "name": "variable.function.quote.racket"
@@ -1640,6 +1653,23 @@
                             "name": "string.quoted.single.racket"
                         }
                     }
+                },
+                {
+                    "begin": "(')(#(hash(eq(v)?)?|\\d*))(?=\\(|\\[)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "variable.function.quote.racket"
+                        },
+                        "2": {
+                            "name": "string.quoted.single.racket"
+                        }
+                    },
+                    "end": "(?<=\\)|\\])",
+                    "patterns": [
+                        {
+                            "include": "#quoted-sexp"
+                        }
+                    ]
                 },
                 {
                     "begin": "(')(?=\\(|\\[)",
@@ -1671,6 +1701,23 @@
                     }
                 },
                 {
+                    "begin": "(#')(#(hash(eq(v)?)?|\\d*))(?=\\(|\\[)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "variable.function.quote.racket"
+                        },
+                        "2": {
+                            "name": "string.quoted.single.racket"
+                        }
+                    },
+                    "end": "(?<=\\)|\\])",
+                    "patterns": [
+                        {
+                            "include": "#quoted-sexp"
+                        }
+                    ]
+                },
+                {
                     "begin": "(#')(?=\\(|\\[)",
                     "beginCaptures": {
                         "1": {
@@ -1698,6 +1745,23 @@
                             "name": "string.quoted.single.racket"
                         }
                     }
+                },
+                {
+                    "begin": "(`)(#(hash(eq(v)?)?|\\d*))(?=\\(|\\[)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "variable.function.quote.racket"
+                        },
+                        "2": {
+                            "name": "string.quoted.single.racket"
+                        }
+                    },
+                    "end": "(?<=\\)|\\])",
+                    "patterns": [
+                        {
+                            "include": "#quoted-sexp"
+                        }
+                    ]
                 },
                 {
                     "begin": "(`)(?=\\(|\\[)",
@@ -1729,6 +1793,23 @@
                     }
                 },
                 {
+                    "begin": "(#`)(#(hash(eq(v)?)?|\\d*))(?=\\(|\\[)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "variable.function.quote.racket"
+                        },
+                        "2": {
+                            "name": "string.quoted.single.racket"
+                        }
+                    },
+                    "end": "(?<=\\)|\\])",
+                    "patterns": [
+                        {
+                            "include": "#quoted-sexp"
+                        }
+                    ]
+                },
+                {
                     "begin": "(#`)(?=\\(|\\[)",
                     "beginCaptures": {
                         "1": {
@@ -1751,6 +1832,9 @@
                     "beginCaptures": {
                         "1": {
                             "name": "variable.function.racket"
+                        },
+                        "2": {
+                            "name": "variable.function.racket"
                         }
                     },
                     "end": "(?<=[\\)\\]])",
@@ -1758,6 +1842,42 @@
                     "patterns": [
                         {
                             "include": "#sexp"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(,@?(?=#hash))",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "variable.function.racket"
+                        },
+                        "2": {
+                            "name": "variable.function.racket"
+                        }
+                    },
+                    "end": "(?<=[\\)\\]])",
+                    "name": "meta.unquoted.racket",
+                    "patterns": [
+                        {
+                            "include": "#hash"
+                        }
+                    ]
+                },
+                {
+                    "begin": "(,@?(?=#[^:]))",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "variable.function.racket"
+                        },
+                        "2": {
+                            "name": "variable.function.racket"
+                        }
+                    },
+                    "end": "(?<=[\\)\\]])",
+                    "name": "meta.unquoted.racket",
+                    "patterns": [
+                        {
+                            "include": "#vector"
                         }
                     ]
                 },
