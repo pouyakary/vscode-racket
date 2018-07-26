@@ -73,11 +73,19 @@
         },
         "vector": {
             "name": "meta.vector.racket",
-            "begin": "#(fl|fx)?\\d*(\\()",
-            "end": "(\\))",
-            "captures": {
+            "begin": "(#(fl|fx)?\\d*)(\\()",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.defintion.vector.racket"
+                },
+                "2": {
+                    "name": "punctuation.section.parens.begin.racket"
+                }
+            },
+            "end": "\\)",
+            "endCaptures": {
                 "0": {
-                    "name": "punctuation.definition.vector.racket"
+                    "name": "punctuation.section.parens.end.racket"
                 }
             },
             "patterns": [
@@ -88,11 +96,19 @@
         },
         "hash": {
             "name": "meta.hash.racket",
-            "begin": "#hash(eq(v)?)?(\\()",
+            "begin": "(#hash(eq(v)?)?)(\\()",
+            "beginCaptures": {
+                "1": {
+                    "name": "punctuation.defintion.hash.racket"
+                },
+                "2": {
+                    "name": "punctuation.section.parens.begin.racket"
+                }
+            },
             "end": "\\)",
-            "captures": {
+            "endCaptures": {
                 "0": {
-                    "name": "punctuation.definition.hash.racket"
+                    "name": "punctuation.section.parens.end.racket"
                 }
             },
             "patterns": [
@@ -115,16 +131,16 @@
             "begin": "(?<![,@])(\\()",
             "beginCaptures": {
                 "0": {
-                    "name": "punctuation.section.expression.begin.racket"
+                    "name": "punctuation.section.parens.begin.racket"
                 }
             },
             "end": "(\\))",
             "endCaptures": {
                 "0": {
-                    "name": "punctuation.section.expression.end.racket"
+                    "name": "punctuation.section.parens.end.racket"
                 }
             },
-            "name": "meta.sexp.quasiquoted.racket",
+            "name": "meta.parens.racket",
             "patterns": [
                 {
                     "include": "#dot-operators"
@@ -151,17 +167,17 @@
             ]
         },
         "quoted-sexp": {
-            "name": "meta.expression.quoted.racket",
+            "name": "meta.parens.racket",
             "begin": "(\\()|(\\[)|(\\{)",
             "beginCaptures": {
                 "0": {
-                    "name": "punctuation.section.expression.begin.racket"
+                    "name": "punctuation.section.parens.begin.racket"
                 }
             },
             "end": "(\\))|(\\])|(\\})",
             "endCaptures": {
                 "0": {
-                    "name": "punctuation.section.expression.end.racket"
+                    "name": "punctuation.section.parens.end.racket"
                 }
             },
             "patterns": [
@@ -193,7 +209,7 @@
                     "begin": "(\\(|\\[)\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "variable.function.racket"
@@ -202,7 +218,7 @@
                     "end": "\\)|\\]",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -212,14 +228,14 @@
                     ]
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.parens.racket",
                     "match": "(\\(|\\[)\\s*(\\)|\\])",
                     "captures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     }
                 }
@@ -228,10 +244,11 @@
         "value-assignment-expression": {
             "patterns": [
                 {
+                    "name": "meta.brackets.racket",
                     "begin": "(\\[)\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"]+)",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.brackets.begin.racket"
                         },
                         "2": {
                             "name": "entity.name.variable.racket"
@@ -240,7 +257,7 @@
                     "end": "\\]",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.brackets.end.racket"
                         }
                     },
                     "patterns": [
@@ -255,13 +272,13 @@
             "begin": "(#[&s]?)?\\(",
             "beginCaptures": {
                 "0": {
-                    "name": "punctuation.section.expression.end.racket"
+                    "name": "punctuation.section.parens.end.racket"
                 }
             },
             "end": "\\)",
             "endCaptures": {
                 "0": {
-                    "name": "punctuation.section.expression.end.racket"
+                    "name": "punctuation.section.parens.end.racket"
                 }
             },
             "patterns": [
@@ -292,7 +309,7 @@
                     "begin": "(\\()\\s*((for\\*?(\/(lists?|vector|hash(eq(v)?)?|fold|or|and|first|last|sum|product|((mutable|weak)\\-)?set(eq(v)?)?))?)|(let\\*?)|do)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "keyword.control.racket"
@@ -301,7 +318,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -309,13 +326,13 @@
                             "begin": "(\\()\\s*(?=\\[)",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.expression.begin.racket"
+                                    "name": "punctuation.section.parens.begin.racket"
                                 }
                             },
                             "end": "(?<=\\])\\s*(\\))",
                             "endCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.expression.end.racket"
+                                    "name": "punctuation.section.parens.end.racket"
                                 }
                             },
                             "patterns": [
@@ -334,7 +351,7 @@
                     "begin": "(\\()\\s*(case)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "keyword.control.match.racket"
@@ -343,27 +360,26 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
                         {
-                            "name": "meta.case.pattern.racket",
+                            "name": "meta.brackets.racket",
                             "begin": "(\\[)\\s*(?=\\()",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.expression.begin.racket"
+                                    "name": "punctuation.section.brackets.begin.racket"
                                 }
                             },
                             "end": "\\]",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.expression.end.racket"
+                                    "name": "punctuation.section.brackets.end.racket"
                                 }
                             },
                             "patterns": [
                                 {
-                                    "name": "meta.case.match.racket",
                                     "begin": "(?<=\\[)\\s*(?=(\\())",
                                     "end": "(?<=\\))",
                                     "patterns": [
@@ -381,11 +397,11 @@
                             ]
                         },
                         {
-                            "name": "meta.expression.racket",
+                            "name": "meta.brackets.racket",
                             "begin": "(\\[)\\s*(else)",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.expression.begin.racket"
+                                    "name": "punctuation.section.brackets.begin.racket"
                                 },
                                 "2": {
                                     "name": "constant.language.racket"
@@ -394,7 +410,7 @@
                             "end": "\\]",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.expression.end.racket"
+                                    "name": "punctuation.section.brackets.end.racket"
                                 }
                             },
                             "patterns": [
@@ -413,7 +429,7 @@
                     "begin": "(\\()\\s*(syntax-case)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "keyword.control.match.racket"
@@ -422,22 +438,22 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
                         {
-                            "name": "meta.case.pattern.racket",
+                            "name": "meta.brackets.racket",
                             "begin": "\\[",
                             "beginCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.expression.begin.racket"
+                                    "name": "punctuation.section.brackets.begin.racket"
                                 }
                             },
                             "end": "\\]",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.expression.end.racket"
+                                    "name": "punctuation.section.brackets.end.racket"
                                 }
                             },
                             "patterns": [
@@ -473,13 +489,13 @@
                                     "begin": "(?<=\\[)\\s*(#[&s]?)?\\(",
                                     "beginCaptures": {
                                         "0": {
-                                            "name": "punctuation.section.expression.end.racket"
+                                            "name": "punctuation.section.parens.end.racket"
                                         }
                                     },
                                     "end": "\\)",
                                     "endCaptures": {
                                         "0": {
-                                            "name": "punctuation.section.expression.end.racket"
+                                            "name": "punctuation.section.parens.end.racket"
                                         }
                                     },
                                     "patterns": [
@@ -518,7 +534,7 @@
                     "begin": "(\\()\\s*(match)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "keyword.other.match.racket"
@@ -527,22 +543,22 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
                         {
-                            "name": "meta.case.pattern.racket",
+                            "name": "meta.brackets.racket",
                             "begin": "\\[",
                             "beginCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.expression.begin.racket"
+                                    "name": "punctuation.section.brackets.begin.racket"
                                 }
                             },
                             "end": "\\]",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.expression.end.racket"
+                                    "name": "punctuation.section.brackets.end.racket"
                                 }
                             },
                             "patterns": [
@@ -575,7 +591,7 @@
                     "begin": "(\\()\\s*(cond)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "keyword.control.conditional.racket"
@@ -584,16 +600,16 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
                         {
-                            "name": "meta.expression.racket",
+                            "name": "meta.brackets.racket",
                             "begin": "(\\[)\\s*(else)",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.expression.begin.racket"
+                                    "name": "punctuation.section.brackets.begin.racket"
                                 },
                                 "2": {
                                     "name": "constant.language.racket"
@@ -602,7 +618,7 @@
                             "end": "\\]",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.expression.end.racket"
+                                    "name": "punctuation.section.brackets.end.racket"
                                 }
                             },
                             "patterns": [
@@ -612,17 +628,17 @@
                             ]
                         },
                         {
-                            "name": "meta.cond.case.racket",
+                            "name": "meta.brackets.racket",
                             "begin": "\\[",
                             "beginCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.expression.begin.racket"
+                                    "name": "punctuation.section.brackets.begin.racket"
                                 }
                             },
                             "end": "\\]",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.expression.end.racket"
+                                    "name": "punctuation.section.brackets.end.racket"
                                 }
                             },
                             "patterns": [
@@ -641,7 +657,7 @@
                     "begin": "(\\()\\s*(define-values)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -650,21 +666,22 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
                         {
+                            "name": "meta.parens.racket",
                             "begin": "(?<=define-values)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.variable.begin.racket"
+                                    "name": "punctuation.section.parens.begin.racket"
                                 }
                             },
                             "end": "\\)",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.variable.end.racket"
+                                    "name": "punctuation.section.parens.end.racket"
                                 }
                             },
                             "patterns": [
@@ -687,7 +704,7 @@
                     "begin": "(\\()\\s*(define-values-for-syntax)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -696,7 +713,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -704,13 +721,13 @@
                             "begin": "(?<=define-values-for-syntax)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.variable.begin.racket"
+                                    "name": "punctuation.section.parens.begin.racket"
                                 }
                             },
                             "end": "\\)",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.variable.end.racket"
+                                    "name": "punctuation.section.parens.end.racket"
                                 }
                             },
                             "patterns": [
@@ -733,7 +750,7 @@
                     "begin": "(\\()\\s*(define|define\/contract|define(-for)?-syntax)\\s+([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                     "captures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -745,7 +762,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -759,7 +776,7 @@
                     "begin": "(\\()\\s*(define)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -768,7 +785,7 @@
                     "end": "(\\))",
                     "endCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -777,13 +794,13 @@
                             "begin": "(?<=define)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.parameters.begin.racket"
+                                    "name": "punctuation.section.parens.begin.racket"
                                 }
                             },
                             "end": "\\)",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.parameters.end.racket"
+                                    "name": "punctuation.section.parens.end.racket"
                                 }
                             },
                             "patterns": [
@@ -799,7 +816,7 @@
                     "begin": "(\\()\\s*(module[+\\*]?)\\s+([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                     "captures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "variable.function.racket"
@@ -811,7 +828,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -825,7 +842,7 @@
                     "begin": "(\\()\\s*(define\/public)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -834,7 +851,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -843,13 +860,13 @@
                             "begin": "(?<=define\/public\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.parameters.begin.racket"
+                                    "name": "punctuation.section.parens.begin.racket"
                                 }
                             },
                             "end": "\\)",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.parameters.end.racket"
+                                    "name": "punctuation.section.parens.end.racket"
                                 }
                             },
                             "patterns": [
@@ -868,7 +885,7 @@
                     "begin": "(\\()\\s*(lambda)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -877,7 +894,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -886,13 +903,13 @@
                             "begin": "(?<=lambda)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.parameters.begin.racket"
+                                    "name": "punctuation.section.parens.begin.racket"
                                 }
                             },
                             "end": "\\)",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.parameters.end.racket"
+                                    "name": "punctuation.section.parens.end.racket"
                                 }
                             },
                             "patterns": [
@@ -911,7 +928,7 @@
                     "begin": "(\\()\\s*(λ)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -920,7 +937,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -929,13 +946,13 @@
                             "begin": "(?<=λ)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.parameters.begin.racket"
+                                    "name": "punctuation.section.parens.begin.racket"
                                 }
                             },
                             "end": "\\)",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.parameters.end.racket"
+                                    "name": "punctuation.section.parens.end.racket"
                                 }
                             },
                             "patterns": [
@@ -954,7 +971,7 @@
                     "begin": "(\\()\\s*(define-syntax)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -963,7 +980,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -972,13 +989,13 @@
                             "begin": "(?<=define-syntax)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.parameters.begin.racket"
+                                    "name": "punctuation.section.parens.begin.racket"
                                 }
                             },
                             "end": "\\)",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.parameters.end.racket"
+                                    "name": "punctuation.section.parens.end.racket"
                                 }
                             },
                             "patterns": [
@@ -997,7 +1014,7 @@
                     "begin": "(\\()\\s*(define-for-syntax)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -1006,7 +1023,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -1015,13 +1032,13 @@
                             "begin": "(?<=define-for-syntax)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
-                                    "name": "punctuation.section.parameters.begin.racket"
+                                    "name": "punctuation.section.parens.begin.racket"
                                 }
                             },
                             "end": "\\)",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.section.parameters.end.racket"
+                                    "name": "punctuation.section.parens.end.racket"
                                 }
                             },
                             "patterns": [
@@ -1040,7 +1057,7 @@
                     "begin": "(\\()\\s*(struct)(?=\\s)",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.definition.struct.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -1049,25 +1066,25 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.definition.struct.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
                         {
-                            "name": "meta.something",
+                            "contentName": "meta.parens.racket",
                             "begin": "(?<=struct)\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+\\s+)?([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)\\s*(\\()",
                             "beginCaptures": {
                                 "2": {
                                     "name": "entity.name.type.racket"
                                 },
                                 "3": {
-                                    "name": "punctuation.definition.structure.fields.racket"
+                                    "name": "punctuation.section.parens.begin.racket"
                                 }
                             },
                             "end": "\\)",
                             "endCaptures": {
                                 "0": {
-                                    "name": "punctuation.definition.structure.fields.racket"
+                                    "name": "punctuation.section.parens.end.racket"
                                 }
                             },
                             "patterns": [
@@ -1087,7 +1104,7 @@
                     "begin": "(\\()\\s*(class\\*?)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.definition.class.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -1096,7 +1113,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.definition.struct.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -1110,7 +1127,7 @@
                     "begin": "(\\()\\s*(interface\\*?)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.definition.class.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "storage.type.racket"
@@ -1119,7 +1136,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.definition.struct.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -1132,7 +1149,7 @@
                     "begin": "(\\()\\s*(new)\\s+([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.definition.class.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "entity.name.function.racket"
@@ -1144,7 +1161,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.definition.struct.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -1160,7 +1177,7 @@
                     "begin": "(\\()\\s*(format|f?printf)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "entity.name.function.racket"
@@ -1169,7 +1186,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -1207,11 +1224,11 @@
                     ]
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.parens.racket",
                     "begin": "(\\()\\s*([+\\-*\/])(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "keyword.operator.arithmetic.racket"
@@ -1220,7 +1237,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -1230,11 +1247,11 @@
                     ]
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.parens.racket",
                     "begin": "(\\()\\s*(or|and|not)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "keyword.operator.word.racket"
@@ -1243,7 +1260,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -1253,11 +1270,11 @@
                     ]
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.parens.racket",
                     "begin": "(\\()\\s*(quote)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "entity.name.function.racket"
@@ -1266,7 +1283,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -1282,11 +1299,11 @@
                     ]
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.parens.racket",
                     "begin": "(\\()\\s*(quasiquote)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "entity.name.function.racket"
@@ -1295,7 +1312,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -1314,11 +1331,11 @@
                     ]
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.parens.racket",
                     "begin": "(\\()\\s*(match)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "keyword.control.racket"
@@ -1327,7 +1344,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -1337,11 +1354,11 @@
                     ]
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.parens.racket",
                     "begin": "(\\()\\s*(set!|set-values!)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.section.expression.begin.racket"
+                            "name": "punctuation.section.parens.begin.racket"
                         },
                         "2": {
                             "name": "keyword.control.assignment.racket"
@@ -1350,7 +1367,7 @@
                     "end": "\\)",
                     "endCaptures": {
                         "0": {
-                            "name": "punctuation.section.expression.end.racket"
+                            "name": "punctuation.section.parens.end.racket"
                         }
                     },
                     "patterns": [
@@ -1364,11 +1381,17 @@
         "parameter-with-default-value": {
             "patterns": [
                 {
+                    "name": "meta.brackets.racket",
                     "begin": "\\[",
-                    "end": "\\]",
-                    "captures": {
+                    "beginCaptures": {
                         "0": {
-                            "name": "punctuation.definition.function.arguments.racket"
+                            "name": "punctuation.section.brackets.begin.racket"
+                        }
+                    },
+                    "end": "\\]",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.section.brackets.end.racket"
                         }
                     },
                     "patterns": [
@@ -1539,7 +1562,7 @@
                 },
                 {
                     "name": "comment.sexp.racket",
-                    "contentName": "meta.toc-list",
+                    "contentName": "meta.toc-list.racket",
                     "begin": "(#;)\\s*(?=\\()",
                     "beginCaptures": {
                         "1": {
@@ -1555,7 +1578,7 @@
                 },
                 {
                     "name": "comment.sexp.racket",
-                    "contentName": "meta.toc-list",
+                    "contentName": "meta.toc-list.racket",
                     "begin": "#;",
                     "beginCaptures": {
                         "0": {
@@ -1846,7 +1869,6 @@
                         }
                     },
                     "end": "(?<=[\\)\\]])",
-                    "name": "meta.unquoted.racket",
                     "patterns": [
                         {
                             "include": "#sexp"
@@ -1864,7 +1886,6 @@
                         }
                     },
                     "end": "(?<=[\\)\\]])",
-                    "name": "meta.unquoted.racket",
                     "patterns": [
                         {
                             "include": "#hash"
@@ -1882,7 +1903,6 @@
                         }
                     },
                     "end": "(?<=[\\)\\]])",
-                    "name": "meta.unquoted.racket",
                     "patterns": [
                         {
                             "include": "#vector"
@@ -1915,7 +1935,6 @@
                         }
                     },
                     "end": "(?<=[\\)\\]])",
-                    "name": "meta.syntax.unquoted.racket",
                     "patterns": [
                         {
                             "include": "#sexp"
