@@ -323,6 +323,7 @@
                     },
                     "patterns": [
                         {
+                            "name": "meta.parens.racket",
                             "begin": "(\\()\\s*(?=\\[)",
                             "beginCaptures": {
                                 "1": {
@@ -718,6 +719,7 @@
                     },
                     "patterns": [
                         {
+                            "name": "meta.parens.racket",
                             "begin": "(?<=define-values-for-syntax)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
@@ -1146,6 +1148,7 @@
                     ]
                 },
                 {
+                    "name": "meta.function-call.racket",
                     "begin": "(\\()\\s*(new)\\s+([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                     "beginCaptures": {
                         "1": {
@@ -1174,6 +1177,7 @@
                     ]
                 },
                 {
+                    "name": "meta.function-call.racket",
                     "begin": "(\\()\\s*(format|f?printf)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
