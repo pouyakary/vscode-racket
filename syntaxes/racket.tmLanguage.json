@@ -750,7 +750,7 @@
                 {
                     "name": "meta.function-call.racket",
                     "begin": "(\\()\\s*(define|define\/contract|define(-for)?-syntax)\\s+([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
-                    "captures": {
+                    "beginCaptures": {
                         "1": {
                             "name": "punctuation.section.parens.begin.racket"
                         },
@@ -810,6 +810,9 @@
                                     "include": "#function-parameters"
                                 }
                             ]
+                        },
+                        {
+                            "include": "#top-level-clause"
                         }
                     ]
                 },
