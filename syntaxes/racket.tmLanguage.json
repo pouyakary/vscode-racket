@@ -234,7 +234,7 @@
                             "name": "punctuation.section.expression.begin.racket"
                         },
                         "2": {
-                            "name": "variable.other.racket"
+                            "name": "entity.name.variable.racket"
                         }
                     },
                     "end": "\\]",
@@ -670,7 +670,7 @@
                             "patterns": [
                                 {
                                     "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
-                                    "name": "variable.other.racket"
+                                    "name": "entity.name.variable.racket"
                                 },
                                 {
                                     "include": "#comment"
@@ -716,7 +716,7 @@
                             "patterns": [
                                 {
                                     "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+",
-                                    "name": "variable.other.racket"
+                                    "name": "entity.name.variable.racket"
                                 },
                                 {
                                     "include": "#comment"
@@ -739,7 +739,7 @@
                             "name": "storage.type.racket"
                         },
                         "3": {
-                            "name": "variable.other.racket"
+                            "name": "entity.name.variable.racket"
                         }
                     },
                     "end": "\\)",
@@ -1068,7 +1068,7 @@
                             },
                             "patterns": [
                                 {
-                                    "name": "variable.other.member.racket",
+                                    "name": "entity.name.member.racket",
                                     "match": "[^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+"
                                 }
                             ]
@@ -1580,7 +1580,7 @@
                     }
                 },
                 {
-                    "name": "string.quoted.double.byte.racket",
+                    "name": "string.quoted.double.racket",
                     "begin": "#\"",
                     "beginCaptures": {
                         "0": {
