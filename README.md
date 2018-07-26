@@ -15,9 +15,9 @@ The syntax highlighting currently supports:
 
 ## Syntax Highlighting
 
-Racket for VS Code is built to match the quality of Racket editing in VS Code with other editors,
-such as emacs and Vim. The syntax highlighting is one of the best of its kind; you can see a little preview
-here:
+Racket for VS Code is built to match the quality of Racket syntax highlighting in other text editors,
+such as DrRacket, Emacs, and Vim. The syntax highlighting is one of the best of its kind;
+you can see a preview here:
 
 ![Syntax Highlighting Showcase](./images/showcase.png)
 
