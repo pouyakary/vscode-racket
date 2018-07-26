@@ -189,7 +189,7 @@
                     "include": "#builtin-function"
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.function-call.racket",
                     "begin": "(\\(|\\[)\\s*([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                     "beginCaptures": {
                         "1": {
@@ -288,7 +288,7 @@
         "builtin-function": {
             "patterns": [
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.function-call.racket",
                     "begin": "(\\()\\s*((for\\*?(\/(lists?|vector|hash(eq(v)?)?|fold|or|and|first|last|sum|product|((mutable|weak)\\-)?set(eq(v)?)?))?)|(let\\*?)|do)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -330,7 +330,7 @@
                     ]
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.function-call.racket",
                     "begin": "(\\()\\s*(case)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -409,7 +409,7 @@
                     ]
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.function-call.racket",
                     "begin": "(\\()\\s*(syntax-case)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -514,7 +514,7 @@
                     ]
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.function-call.racket",
                     "begin": "(\\()\\s*(match)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -571,7 +571,7 @@
                     ]
                 },
                 {
-                    "name": "meta.expression.racket",
+                    "name": "meta.function-call.racket",
                     "begin": "(\\()\\s*(cond)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -637,7 +637,7 @@
                     ]
                 },
                 {
-                    "name": "meta.variable.definition.racket",
+                    "name": "meta.function-call.racket",
                     "begin": "(\\()\\s*(define-values)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -683,7 +683,7 @@
                     ]
                 },
                 {
-                    "name": "meta.variable.definition.racket",
+                    "name": "meta.function-call.racket",
                     "begin": "(\\()\\s*(define-values-for-syntax)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -729,7 +729,7 @@
                     ]
                 },
                 {
-                    "name": "meta.variable.definition.racket",
+                    "name": "meta.function-call.racket",
                     "begin": "(\\()\\s*(define|define\/contract|define(-for)?-syntax)\\s+([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                     "captures": {
                         "1": {
@@ -755,7 +755,7 @@
                     ]
                 },
                 {
-                    "name": "meta.function.definition.racket",
+                    "name": "meta.function.racket",
                     "begin": "(\\()\\s*(define)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -765,14 +765,15 @@
                             "name": "storage.type.racket"
                         }
                     },
-                    "end": "\\)",
+                    "end": "(\\))",
                     "endCaptures": {
-                        "0": {
+                        "1": {
                             "name": "punctuation.section.expression.end.racket"
                         }
                     },
                     "patterns": [
                         {
+                            "name": "meta.function.parameters.racket",
                             "begin": "(?<=define)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
@@ -790,14 +791,11 @@
                                     "include": "#function-parameters"
                                 }
                             ]
-                        },
-                        {
-                            "include": "#top-level-clause"
                         }
                     ]
                 },
                 {
-                    "name": "meta.variable.definition.racket",
+                    "name": "meta.namespace.racket",
                     "begin": "(\\()\\s*(module[+\\*]?)\\s+([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
                     "captures": {
                         "1": {
@@ -823,7 +821,7 @@
                     ]
                 },
                 {
-                    "name": "meta.function.definition.racket",
+                    "name": "meta.function.racket",
                     "begin": "(\\()\\s*(define\/public)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -841,6 +839,7 @@
                     },
                     "patterns": [
                         {
+                            "name": "meta.function.parameters.racket",
                             "begin": "(?<=define\/public\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
@@ -865,7 +864,7 @@
                     ]
                 },
                 {
-                    "name": "meta.function.definition.racket",
+                    "name": "meta.function.racket",
                     "begin": "(\\()\\s*(lambda)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -883,6 +882,7 @@
                     },
                     "patterns": [
                         {
+                            "name": "meta.function.parameters.racket",
                             "begin": "(?<=lambda)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
@@ -907,7 +907,7 @@
                     ]
                 },
                 {
-                    "name": "meta.function.definition.racket",
+                    "name": "meta.function.racket",
                     "begin": "(\\()\\s*(λ)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -925,6 +925,7 @@
                     },
                     "patterns": [
                         {
+                            "name": "meta.function.parameters.racket",
                             "begin": "(?<=λ)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
@@ -949,7 +950,7 @@
                     ]
                 },
                 {
-                    "name": "meta.function.definition.racket",
+                    "name": "meta.function.racket",
                     "begin": "(\\()\\s*(define-syntax)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -967,6 +968,7 @@
                     },
                     "patterns": [
                         {
+                            "name": "meta.function.parameters.racket",
                             "begin": "(?<=define-syntax)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
@@ -991,7 +993,7 @@
                     ]
                 },
                 {
-                    "name": "meta.function.definition.racket",
+                    "name": "meta.function.racket",
                     "begin": "(\\()\\s*(define-for-syntax)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
@@ -1009,6 +1011,7 @@
                     },
                     "patterns": [
                         {
+                            "name": "meta.function.parameters.racket",
                             "begin": "(?<=define-for-syntax)\\s*(\\()",
                             "beginCaptures": {
                                 "1": {
