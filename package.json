@@ -42,7 +42,9 @@
             "[racket]": {
                 "editor.rulers": [
                     106
-                ]
+                ],
+                "files.trimFinalNewlines": true,
+                "files.trimTrailingWhitespace": true
             }
         },
         "languages": [
