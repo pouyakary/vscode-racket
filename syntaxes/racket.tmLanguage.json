@@ -388,7 +388,7 @@
                                     "name": "punctuation.section.expression.begin.racket"
                                 },
                                 "2": {
-                                    "name": "keyword.control.racket"
+                                    "name": "keyword.control.conditional.racket"
                                 }
                             },
                             "end": "\\]",
@@ -619,7 +619,7 @@
                                     "name": "punctuation.section.expression.begin.racket"
                                 },
                                 "2": {
-                                    "name": "keyword.control.racket"
+                                    "name": "keyword.control.conditional.racket"
                                 }
                             },
                             "end": "\\]",
@@ -814,6 +814,32 @@
                                 }
                             ]
                         },
+                        {
+                            "include": "#top-level-clause"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.variable.definition.racket",
+                    "begin": "(\\()\\s*(module[+\\*]?)\\s+([^\\s\\{\\}\\(\\)\\[\\]#\\|,\"'´\\\\;]+)",
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.section.expression.begin.racket"
+                        },
+                        "2": {
+                            "name": "variable.function.racket"
+                        },
+                        "3": {
+                            "name": "entity.name.namespace.racket"
+                        }
+                    },
+                    "end": "\\)",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.section.expression.end.racket"
+                        }
+                    },
+                    "patterns": [
                         {
                             "include": "#top-level-clause"
                         }
@@ -1516,7 +1542,7 @@
                     "match": "(;).*$",
                     "captures": {
                         "1": {
-                            "name": "punctuation.definition.comment"
+                            "name": "punctuation.definition.comment.racket"
                         }
                     }
                 },
@@ -1525,7 +1551,7 @@
                     "match": "(#!( |\/)).*$",
                     "captures": {
                         "1": {
-                            "name": "punctuation.definition.comment"
+                            "name": "punctuation.definition.comment.racket"
                         }
                     }
                 },
@@ -1535,7 +1561,7 @@
                     "begin": "(#;)\\s*(?=\\()",
                     "beginCaptures": {
                         "1": {
-                            "name": "punctuation.definition.comment"
+                            "name": "punctuation.definition.comment.racket"
                         }
                     },
                     "end": "(?<=\\))",
@@ -1551,7 +1577,7 @@
                     "begin": "#;",
                     "beginCaptures": {
                         "0": {
-                            "name": "punctuation.definition.comment"
+                            "name": "punctuation.definition.comment.racket"
                         }
                     },
                     "end": "(?=\\s|\\]|\\))",
@@ -1567,7 +1593,7 @@
                     "end": "\\|#",
                     "captures": {
                         "0": {
-                            "name": "punctuation.definition.comment"
+                            "name": "punctuation.definition.comment.racket"
                         }
                     },
                     "patterns": [
