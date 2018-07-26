@@ -2,7 +2,7 @@
 # Racket for Visual Studio Code
 
 This package adds support for [Racket](racket-lang.org) to Visual Studio Code. It focuses on providing
-top-quality syntax highlighting with full support of semantic scoping.
+high-quality syntax highlighting with full support of semantic scoping.
 The syntax highlighting currently supports:
 
 - quotes and quasiquotes
