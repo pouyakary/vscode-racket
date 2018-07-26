@@ -1036,6 +1036,7 @@
                     ]
                 },
                 {
+                    "name": "meta.struct.racket",
                     "begin": "(\\()\\s*(struct)(?=\\s)",
                     "beginCaptures": {
                         "1": {
@@ -1082,7 +1083,31 @@
                     ]
                 },
                 {
+                    "name": "meta.class.racket",
                     "begin": "(\\()\\s*(class\\*?)(?=[\\s\\{\\(\\[#])",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.definition.class.racket"
+                        },
+                        "2": {
+                            "name": "storage.type.racket"
+                        }
+                    },
+                    "end": "\\)",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.struct.racket"
+                        }
+                    },
+                    "patterns": [
+                        {
+                            "include": "#top-level-clause"
+                        }
+                    ]
+                },
+                {
+                    "name": "meta.interface.racket",
+                    "begin": "(\\()\\s*(interface\\*?)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
                             "name": "punctuation.definition.class.racket"
