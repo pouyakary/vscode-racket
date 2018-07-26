@@ -1,14 +1,50 @@
 
 # Racket for Visual Studio Code
 
-This is a package for supporting rich [Racket](racket-lang.org) support for Visual Studio Code. Other implementations of Racket grammar didn't have full colorization for the language and because we develop [Kary Themes](https://marketplace.visualstudio.com/items?itemName=karyfoundation.theme-karyfoundation-themes) to be fully colorized we developed this package to offer you a much more awesome experience.
+This package adds support for [Racket](racket-lang.org) to Visual Studio Code. It focuses on providing
+high-quality syntax highlighting with full support of semantic scoping.
+The syntax highlighting currently supports:
 
-This package also features an extension to inteliSense to support racket/scheme "kebab" identifiers and also other racket names such as `string->keyword` or like `#lang`
+- quotes and quasiquotes
+- function and variable definition
+- Racket keywords (such as `cond`, `case` etc.)
+- special Racket syntax for binding a value to an identifier (such as inside `for` clauses)
+- numbers, including numbers in exponential form and complex numbers
+- vectors and hash tables
+- and many more — every common (and also not so common) Racket expression should be correctly hightlighted
 
-![](https://user-images.githubusercontent.com/2157285/27756038-51ac30b8-5e09-11e7-812e-dba843728e6c.png)
+## Syntax Highlighting
 
+Racket for VS Code is built to match the quality of Racket syntax highlighting in other text editors,
+such as DrRacket, Emacs, and Vim. The syntax highlighting is one of the best of its kind;
+you can see a preview here:
 
-<br />
-<a href="http://www.karyfoundation.org/">
-    <img src="http://www.karyfoundation.org/foundation/logo/github-full-horse.png" width="250"/>
-</a>
+![Syntax Highlighting Showcase](./images/showcase.png)
+
+_The screenshot was taken with a customized Atom One Dark theme and the awesome Source Code Pro font._
+
+We recommend our users to take a look at [Kary Pro Colors][1], which is a theme developed specifically
+to support various semantic scopes and which will get dedicated Racket support soon.
+
+## Other features
+
+This package also features a simple extension to IntelliSense to support Racket's "kebab" identifiers
+and also various Racket names such as `string->keyword` or `#lang`. Other IDE-like features are
+being worked on.
+
+## Issues
+
+Syntax highlighting as a whole has two inseparable parts:
+
+- the grammar, which this extension provides, that "parses" the code and decides what text represents what
+- the theme, which then colorizes the _what_ based on what it is
+
+If you have some troubles with the syntax highlighting, try to find out if it's a problem of
+this extension, or of the theme you are using (not all themes support every piece of grammar).
+If you think the problem is on the side of this extension, or if you're not sure,
+please report the problem using GitHub issues on the main repo.
+This also applies if you have any feature-requests.
+
+And of course, instead of filing an issue, you can submit a PR and make the world a better place!
+
+[1]: (https://marketplace.visualstudio.com/items?itemName=karyfoundation.theme-karyfoundation-themes)
