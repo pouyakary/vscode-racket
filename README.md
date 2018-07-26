@@ -41,8 +41,9 @@ Syntax highlighting as a whole has two inseparable parts:
 
 If you have some troubles with the syntax highlighting, try to find out if it's a problem of
 this extension, or of the theme you are using (not all themes support every piece of grammar).
-If you think the pproblem is on the side of this extension (or if you're not sure),
-please report the problem using GitHub issues. This also applies if you have any feature-requests.
+If you think the problem is on the side of this extension, or if you're not sure,
+please report the problem using GitHub issues on the main repo.
+This also applies if you have any feature-requests.
 
 And of course, instead of filing an issue, you can submit a PR and make the world a better place!
 
