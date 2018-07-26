@@ -546,18 +546,8 @@
                                     ]
                                 },
                                 {
-                                    "begin": "(?<=\\[)\\s*('?)\\(",
-                                    "beginCaptures": {
-                                        "0": {
-                                            "name": "punctuation.section.expression.end.racket"
-                                        }
-                                    },
-                                    "end": "\\)",
-                                    "endCaptures": {
-                                        "0": {
-                                            "name": "punctuation.section.expression.end.racket"
-                                        }
-                                    },
+                                    "begin": "(?<=\\[)\\s*('?)(?=\\()",
+                                    "end": "(?<=\\))",
                                     "patterns": [
                                         {
                                             "name": "keyword.control.match.wildcard.racket",
