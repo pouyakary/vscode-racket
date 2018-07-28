@@ -12,53 +12,50 @@
 // ─── IMPORTS ────────────────────────────────────────────────────────────────────
 //
 
-	import * as vscode from 'vscode';
+	import * as vscode from 'vscode'
 
 //
 // ─── ACTIVATION FUNCTION ────────────────────────────────────────────────────────
 //
 
 	export function activate(context: vscode.ExtensionContext) {
-		let repl: vscode.Terminal = undefined;
+		let repl: vscode.Terminal = undefined
+		
 		context.subscriptions.push(
 			vscode.languages.registerCompletionItemProvider(
 				'racket', provideSuggestions, '.'
 			)
-		);
+		)
 
 		context.subscriptions.push(
-			vscode.commands.registerCommand('racket.createTerminal', () => {
-				repl = createReplTerminal();
-				if (repl) {
-					repl.show();
-				}
+			vscode.commands.registerCommand( 'racket.createTerminal', ( ) => {
+				repl = createReplTerminal( )
+				if ( repl )
+					repl.show( )
 			})
-		);
+		)
 
 		context.subscriptions.push(
-			vscode.commands.registerCommand('racket.run', () => {
-				const editor = vscode.window.activeTextEditor;
-				if (!editor) {
-					return;
-				}
-				if (!repl) {
-					repl = createReplTerminal();
-					if (repl) {
-						repl.show();
-					} else {
-						return;
-					}
+			vscode.commands.registerCommand( 'racket.run', ( ) => {
+				const editor = vscode.window.activeTextEditor
+				if ( !editor )
+					return
+				if ( !repl )
+					repl = createReplTerminal( )
+					if ( repl )
+						repl.show( )
+					else
+						return
 				}
 				repl.sendText(editor.document.getText(hasSelectedText(editor.selection) ? editor.selection : null), true);
 			})
-		);
+		)
 
-		if ('onDidCloseTerminal' in vscode.window) {
-			vscode.window.onDidCloseTerminal((terminal: vscode.Terminal) => {
-				if (terminal.name === 'Racket') {
-					repl = undefined;
-				}
-			});
+		if ( 'onDidCloseTerminal' in vscode.window ) {
+			vscode.window.onDidCloseTerminal(( terminal: vscode.Terminal ) => {
+				if (terminal.name === 'Racket')
+					repl = undefined
+			})
 		}
 	}
 
@@ -103,9 +100,11 @@
         // done
         return suggestions
     } 
+
 //
 // ─── TERMINAL ───────────────────────────────────────────────────────────────────
 //
+
 	function createReplTerminal(): vscode.Terminal {
 		const racketPath = vscode.workspace.getConfiguration().get('racket.racketPath') as string;
 		if (!racketPath) {
@@ -118,7 +117,9 @@
 //
 // ─── SELECTIONL ─────────────────────────────────────────────────────────────────
 //
+
 	function hasSelectedText(selection: vscode.Selection): boolean {
 		return !(selection.start.line === selection.end.line && selection.start.character === selection.end.character);
 	}
+
 // ────────────────────────────────────────────────────────────────────────────────
