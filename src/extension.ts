@@ -1,4 +1,3 @@
-
 //
 // Copyright 2016 Kary Foundation, Inc.
 //   Author: Pouya Kary <k@karyfoundation.org>
@@ -20,7 +19,7 @@
 
 	export function activate(context: vscode.ExtensionContext) {
 		let repl: vscode.Terminal = undefined
-		
+
 		context.subscriptions.push(
 			vscode.languages.registerCompletionItemProvider(
 				'racket', provideSuggestions, '.'
@@ -42,12 +41,11 @@
 					return
 				if ( !repl )
 					repl = createReplTerminal( )
-					if ( repl )
-						repl.show( )
-					else
-						return
-				}
-				repl.sendText(editor.document.getText(hasSelectedText(editor.selection) ? editor.selection : null), true);
+				if ( repl )
+					repl.show( )
+				else
+					return
+				repl.sendText( editor.document.getText( hasSelectedText( editor.selection ) ? editor.selection : null ), true )
 			})
 		)
 
@@ -71,47 +69,47 @@
 // ─── EXPORTS ────────────────────────────────────────────────────────────────────
 //
 
-    const provideSuggestions: vscode.CompletionItemProvider = {
-        provideCompletionItems: provider
-    }
-    
+	const provideSuggestions: vscode.CompletionItemProvider = {
+		provideCompletionItems: provider
+	}
+
 //
 // ─── PROVIDER ───────────────────────────────────────────────────────────────────
 //
 
-    function provider ( document: vscode.TextDocument,
-                        position: vscode.Position,
-                           token: vscode.CancellationToken ): vscode.CompletionItem[ ] {
-        // context words                         
-        const words = document.getText( ).split(
-            // ./orchestras/space-between-identifiers.orchestra
-            /(?:(?:;(?:.)*|[\s\+\*\(\)\[\]]|"(?:(?:\\"|[^"]))*"))+/g )
+	function provider ( document: vscode.TextDocument,
+						position: vscode.Position,
+							token: vscode.CancellationToken ): vscode.CompletionItem[ ] {
+		// context words
+		const words = document.getText( ).split(
+			// ./orchestras/space-between-identifiers.orchestra
+			/(?:(?:;(?:.)*|[\s\+\*\(\)\[\]]|"(?:(?:\\"|[^"]))*"))+/g )
 
-        // suggestions
-        let suggestions = new Array<vscode.CompletionItem>( )
-            
-        // getting suggestions
-        for ( const word of words ) {
+		// suggestions
+		let suggestions = new Array<vscode.CompletionItem>( )
+
+		// getting suggestions
+		for ( const word of words ) {
 			const suggestion = new vscode.CompletionItem( word )
 			suggestion.kind = vscode.CompletionItemKind.Variable
-            suggestions.push( suggestion )
-        }
+			suggestions.push( suggestion )
+		}
 
-        // done
-        return suggestions
-    } 
+		// done
+		return suggestions
+	}
 
 //
 // ─── TERMINAL ───────────────────────────────────────────────────────────────────
 //
 
 	function createReplTerminal(): vscode.Terminal {
-		const racketPath = vscode.workspace.getConfiguration().get('racket.racketPath') as string;
+		const racketPath = vscode.workspace.getConfiguration().get('racket.racketPath') as string
 		if (!racketPath) {
-			vscode.window.showErrorMessage('Path to racket executable has not been set.');
-			return null;
+			vscode.window.showErrorMessage('Path to racket executable has not been set.')
+			return null
 		}
-		return vscode.window.createTerminal({ name: 'Racket', shellPath: 'C:\\Program Files\\Racket\\Racket.exe' });
+		return vscode.window.createTerminal({ name: 'Racket', shellPath: racketPath })
 	}
 
 //
@@ -119,7 +117,7 @@
 //
 
 	function hasSelectedText(selection: vscode.Selection): boolean {
-		return !(selection.start.line === selection.end.line && selection.start.character === selection.end.character);
+		return !(selection.start.line === selection.end.line && selection.start.character === selection.end.character)
 	}
 
 // ────────────────────────────────────────────────────────────────────────────────
