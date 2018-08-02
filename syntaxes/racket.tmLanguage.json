@@ -32,6 +32,9 @@
                 },
                 {
                     "include": "#quotes"
+                },
+                {
+                    "include": "#parentheses"
                 }
             ]
         },
@@ -757,7 +760,7 @@
                         "2": {
                             "name": "storage.type.racket"
                         },
-                        "3": {
+                        "4": {
                             "name": "entity.name.variable.racket"
                         }
                     },
@@ -1232,7 +1235,7 @@
                 },
                 {
                     "name": "meta.parens.racket",
-                    "begin": "(\\()\\s*([+\\-*\/])(?=[\\s\\{\\(\\[#])",
+                    "begin": "(\\()\\s*([+\\-*\/<>]|<=|>=)(?=[\\s\\{\\(\\[#])",
                     "beginCaptures": {
                         "1": {
                             "name": "punctuation.section.parens.begin.racket"
@@ -1970,7 +1973,17 @@
         },
         "parentheses": {
             "begin": "\\(",
+            "beginCaptures": {
+                "0": {
+                    "name": "punctuation.section.parens.begin.racket"
+                }
+            },
             "end": "\\)",
+            "endCaptures": {
+                "0": {
+                    "name": "punctuation.section.parens.begin.racket"
+                }
+            },
             "patterns": [
                 {
                     "include": "#parentheses"

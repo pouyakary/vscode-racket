@@ -1,63 +1,67 @@
 {
-	"name": "racket",
-	"displayName": "Racket",
-	"description": "Racket syntax highlighting and basic code completion",
-	"version": "1.0.0",
-	"preview": true,
-	"publisher": "karyfoundation",
-	"icon": "icon.png",
-	"engines": {
-		"vscode": "^1.22.0"
-	},
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/karyfoundation/racket-vscode"
-	},
-	"categories": [
-		"Programming Languages"
-	],
-	"activationEvents": [
-		"onLanguage:racket",
-		"onCommand:extension.sayHello"
-	],
-	"main": "./out/src/extension",
-	"contributes": {
-		"commands": [
-			{
-				"command": "extension.sayHello",
-				"title": "Hello World"
-			}
-		],
-		"languages": [
-			{
-				"id": "racket",
-				"extensions": [
-					".rkt"
-				],
-				"aliases": [
-					"Racket",
-					"racket"
-				],
-				"filenames": [
-					".rkt"
-				],
-				"configuration": "./language-configuration.json"
-			}
-		],
-		"grammars": [
-			{
-				"language": "racket",
-				"scopeName": "source.racket",
-				"path": "./syntaxes/racket.tmLanguage.json"
-			}
-		]
-	},
-	"scripts": {
-		"vscode:prepublish": "node ./node_modules/vscode/bin/compile",
-		"compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
-	},
-	"devDependencies": {
-		"typescript": "^1.6.2",
-		"vscode": "0.10.x"
-	}
+    "name": "racket",
+    "displayName": "Racket",
+    "description": "Racket syntax highlighting and basic code completion",
+    "version": "1.0.0",
+    "preview": true,
+    "publisher": "karyfoundation",
+    "icon": "icon.png",
+    "engines": {
+        "vscode": "^1.22.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/pmkary/vscode-racket"
+    },
+    "homepage": "https://github.com/pmkary/vscode-racket/blob/master/README.md",
+    "bugs": {
+        "url": "https://github.com/pmkary/vscode-racket/issues"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "activationEvents": [
+        "onLanguage:racket",
+        "onCommand:extension.sayHello"
+    ],
+    "main": "./out/src/extension",
+    "contributes": {
+        "commands": [
+            {
+                "command": "extension.sayHello",
+                "title": "Hello World"
+            }
+        ],
+        "languages": [
+            {
+                "id": "racket",
+                "extensions": [
+                    ".rkt"
+                ],
+                "aliases": [
+                    "Racket",
+                    "racket"
+                ],
+                "filenames": [
+                    ".rkt"
+                ],
+                "configuration": "./language-configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "racket",
+                "scopeName": "source.racket",
+                "path": "./syntaxes/racket.tmLanguage.json"
+            }
+        ]
+    },
+    "scripts": {
+        "vscode:prepublish": "node ./node_modules/vscode/bin/compile",
+        "compile": "node ./node_modules/vscode/bin/compile -watch -p ./"
+    },
+    "devDependencies": {
+        "typescript": "^1.6.2",
+        "vscode": "0.10.x"
+    }
 }
