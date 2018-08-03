@@ -1,6 +1,5 @@
 //
-// Copyright 2016 Kary Foundation, Inc.
-//   Author: Pouya Kary <k@karyfoundation.org>
+// Copyright 2016-present by Pouya Kary <kary@gnu.org>
 //
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
@@ -14,11 +13,17 @@
 	import * as vscode from 'vscode'
 
 //
+// ─── GLOBALS ────────────────────────────────────────────────────────────────────
+//
+
+	var repl: vscode.Terminal =
+		undefined
+
+//
 // ─── ACTIVATION FUNCTION ────────────────────────────────────────────────────────
 //
 
 	export function activate(context: vscode.ExtensionContext) {
-		let repl: vscode.Terminal = undefined
 
 		context.subscriptions.push(
 			vscode.languages.registerCompletionItemProvider(
@@ -27,34 +32,63 @@
 		)
 
 		context.subscriptions.push(
-			vscode.commands.registerCommand( 'racket.createTerminal', ( ) => {
-				repl = createReplTerminal( )
-				if ( repl )
-					repl.show( )
-			})
+			vscode.commands.registerCommand( 'racket.createTerminal', onCreateTerminal )
 		)
 
 		context.subscriptions.push(
-			vscode.commands.registerCommand( 'racket.run', ( ) => {
-				const editor = vscode.window.activeTextEditor
-				if ( !editor )
-					return
-				if ( !repl )
-					repl = createReplTerminal( )
-				if ( repl )
-					repl.show( )
-				else
-					return
-				repl.sendText( editor.document.getText( hasSelectedText( editor.selection ) ? editor.selection : null ), true )
-			})
+			vscode.commands.registerCommand( 'racket.run', onRunRacket )
 		)
 
-		if ( 'onDidCloseTerminal' in vscode.window ) {
-			vscode.window.onDidCloseTerminal(( terminal: vscode.Terminal ) => {
-				if (terminal.name === 'Racket')
-					repl = undefined
-			})
-		}
+		if ( 'onDidCloseTerminal' in vscode.window )
+			onDidCloseTerminal( )
+	}
+
+//
+// ─── ON DID CLONE TERMINAL ──────────────────────────────────────────────────────
+//
+
+	function onDidCloseTerminal ( ) {
+		vscode.window.onDidCloseTerminal(( terminal: vscode.Terminal ) => {
+			if ( terminal.name === 'Racket' )
+				repl = undefined
+		})
+	}
+
+//
+// ─── ON CREATE TERMINAL ─────────────────────────────────────────────────────────
+//
+
+	function onCreateTerminal ( ) {
+		repl =
+			createReplTerminal( )
+		if ( repl )
+			repl.show( )
+	}
+
+//
+// ─── ON RUN RACKET ──────────────────────────────────────────────────────────────
+//
+
+	function onRunRacket ( ) {
+		const editor =
+			vscode.window.activeTextEditor
+
+		if ( !editor )
+			return
+		if ( !repl )
+			repl = createReplTerminal( )
+		if ( repl )
+			repl.show( )
+		else
+			return
+
+		repl.sendText(
+			editor.document.getText(
+				hasSelectedText( editor.selection )
+					? editor.selection
+					: null
+					)
+			, true )
 	}
 
 //
@@ -79,7 +113,7 @@
 
 	function provider ( document: vscode.TextDocument,
 						position: vscode.Position,
-							token: vscode.CancellationToken ): vscode.CompletionItem[ ] {
+					       token: vscode.CancellationToken ): vscode.CompletionItem[ ] {
 		// context words
 		const words = document.getText( ).split(
 			// ./orchestras/space-between-identifiers.orchestra
@@ -103,21 +137,30 @@
 // ─── TERMINAL ───────────────────────────────────────────────────────────────────
 //
 
-	function createReplTerminal(): vscode.Terminal {
-		const racketPath = vscode.workspace.getConfiguration().get('racket.racketPath') as string
-		if (!racketPath) {
-			vscode.window.showErrorMessage('Path to racket executable has not been set.')
+	function createReplTerminal ( ): vscode.Terminal {
+		const racketPath =
+			vscode.workspace
+				.getConfiguration( )
+				.get('racket.racketPath') as string
+
+		if ( !racketPath ) {
+			vscode.window.showErrorMessage( 'Path to racket executable has not been set.' )
 			return null
 		}
-		return vscode.window.createTerminal({ name: 'Racket', shellPath: racketPath })
+
+		return vscode.window.createTerminal({
+			name: 		'Racket',
+			shellPath: 	racketPath
+		})
 	}
 
 //
 // ─── SELECTIONL ─────────────────────────────────────────────────────────────────
 //
 
-	function hasSelectedText(selection: vscode.Selection): boolean {
-		return !(selection.start.line === selection.end.line && selection.start.character === selection.end.character)
+	function hasSelectedText ( selection: vscode.Selection ): boolean {
+		return selection.start.line !== selection.end.line ||
+			   selection.start.character !== selection.end.character
 	}
 
 // ────────────────────────────────────────────────────────────────────────────────
