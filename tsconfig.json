@@ -6,7 +6,8 @@
 		"lib": [
 			"es6"
 		],
-		"sourceMap": true
+    "sourceMap": true,
+    "downlevelIteration": true
 	},
 	"exclude": [
 		"node_modules"
