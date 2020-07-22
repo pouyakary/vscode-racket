@@ -118,12 +118,13 @@
 		const words = document.getText( ).split(
 			// ./orchestras/space-between-identifiers.orchestra
 			/(?:(?:;(?:.)*|[\s\+\*\(\)\[\]]|"(?:(?:\\"|[^"]))*"))+/g )
+    const unique_words = new Set(words)
 
 		// suggestions
 		let suggestions = new Array<vscode.CompletionItem>( )
 
 		// getting suggestions
-		for ( const word of words ) {
+		for ( const word of unique_words ) {
 			const suggestion = new vscode.CompletionItem( word )
 			suggestion.kind = vscode.CompletionItemKind.Variable
 			suggestions.push( suggestion )
